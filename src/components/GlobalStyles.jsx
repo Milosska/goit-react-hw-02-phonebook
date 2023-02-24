@@ -33,9 +33,9 @@ img {
 }
 
 ul {
-  list-style: none;
-  margin: 0;
-  padding-left: 0;
+  /* list-style: none; */
+  /* margin: 0;
+  padding-left: 0; */
 }
 
 a {

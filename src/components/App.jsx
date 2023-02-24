@@ -4,6 +4,7 @@ import 'modern-normalize';
 import { nanoid } from 'nanoid';
 
 import { ContactForm } from './ContactForm/ContactForm';
+import { ContactList } from './ContactList/ContactList';
 
 export class App extends Component {
   state = {
@@ -11,14 +12,15 @@ export class App extends Component {
     name: '',
   };
 
-  handleSubmit = e => {
-    let newContact = e;
+  handleSubmit = (values, { resetForm }) => {
+    let newContact = values;
     newContact.id = nanoid();
 
-    this.setState(prevState => {
-      console.log(prevState);
-      // ...prevState,
-      prevState.contacts.push(newContact);
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
+    resetForm({
+      name: '',
     });
   };
 
@@ -28,10 +30,9 @@ export class App extends Component {
         <GlobalStyles />
         <h1>Phonebook</h1>
         <ContactForm onFormSubmit={this.handleSubmit} />
-
         <h2>Contacts</h2>
-        {/* <Filter ... />
-  <ContactList ... /> */}
+        {/* <Filter ... /> */}
+        <ContactList contacts={this.state.contacts} />
       </div>
     );
   }

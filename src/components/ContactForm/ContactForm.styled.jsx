@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const FormikForm = styled(Form)`
   width: 500px;
   margin-left: 10px;
+  margin-top: 10px;
   padding: 20px 10px;
   border: 1px solid #2a2a2a;
 `;

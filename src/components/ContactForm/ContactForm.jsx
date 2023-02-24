@@ -22,7 +22,9 @@ export const ContactForm = ({ onFormSubmit }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={FormScheme}
-      onSubmit={e => onFormSubmit(e)}
+      onSubmit={(values, actions) => {
+        onFormSubmit(values, actions);
+      }}
     >
       <FormikForm autoComplete="off">
         <label>
