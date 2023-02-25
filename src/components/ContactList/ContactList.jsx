@@ -14,6 +14,7 @@ export const ContactList = ({ contacts, filter, onDelete }) => {
             contactName={name}
             contactNumber={number}
             contactId={id}
+            contactDelete={onDelete}
           />
         );
       });
