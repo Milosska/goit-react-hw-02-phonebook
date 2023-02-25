@@ -15,16 +15,25 @@ export class App extends Component {
 
   handleSubmit = (values, { resetForm }) => {
     let newContact = values;
-    newContact.id = nanoid();
 
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
+    const check = this.state.contacts.filter(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
 
-    resetForm({
-      name: '',
-      number: '',
-    });
+    if (check.length) {
+      alert(`${newContact.name} is already in contacts`);
+    } else {
+      newContact.id = nanoid();
+
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, newContact],
+      }));
+
+      resetForm({
+        name: '',
+        number: '',
+      });
+    }
   };
 
   handleFilter = ({ target: { name, value } }) => {
