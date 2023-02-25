@@ -1,11 +1,19 @@
 import { Formik } from 'formik';
 import { object, string } from 'yup';
+import 'yup-phone';
 import PropTypes from 'prop-types';
-import { FormikForm, Input, ErrorText, FormBtn } from './ContactForm.styled';
+import {
+  FormikForm,
+  Label,
+  Input,
+  ErrorText,
+  FormBtn,
+} from './ContactForm.styled';
 
 export const ContactForm = ({ onFormSubmit }) => {
   const initialValues = {
     name: '',
+    number: '',
   };
 
   const FormScheme = object({
@@ -15,6 +23,16 @@ export const ContactForm = ({ onFormSubmit }) => {
           "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
         excludeEmptyString: true,
       })
+      .required('Required'),
+    number: string()
+      .matches(
+        /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
+        {
+          message:
+            'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
+          excludeEmptyString: true,
+        }
+      )
       .required('Required'),
   });
 
@@ -27,11 +45,16 @@ export const ContactForm = ({ onFormSubmit }) => {
       }}
     >
       <FormikForm autoComplete="off">
-        <label>
+        <Label>
           Name
           <Input type="text" name="name" />
           <ErrorText name="name" component="p" />
-        </label>
+        </Label>
+        <Label>
+          Number
+          <Input type="tel" name="number" />
+          <ErrorText name="number" component="p" />
+        </Label>
         <FormBtn type="submit">Add contact</FormBtn>
       </FormikForm>
     </Formik>

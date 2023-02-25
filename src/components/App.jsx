@@ -10,6 +10,7 @@ export class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
   handleSubmit = (values, { resetForm }) => {
@@ -21,6 +22,7 @@ export class App extends Component {
     }));
     resetForm({
       name: '',
+      number: '',
     });
   };
 
