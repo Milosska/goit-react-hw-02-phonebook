@@ -1,14 +1,32 @@
 import { ContactListElem } from '../ContactListElem/ContactListElem';
 import PropTypes from 'prop-types';
 
-export const ContactList = ({ contacts }) => {
-  return (
-    <ul>
-      {contacts.map(({ id, name, number }) => {
+export const ContactList = ({ contacts, filter }) => {
+  const makeFilteredList = (arrey, filterValue) => {
+    return arrey
+      .filter(({ name }) => {
+        return name.toLowerCase().includes(filterValue.toLowerCase());
+      })
+      .map(({ id, name, number }) => {
         return (
           <ContactListElem key={id} contactName={name} contactNumber={number} />
         );
-      })}
+      });
+  };
+
+  const makeUnfilteredList = arrey => {
+    return arrey.map(({ id, name, number }) => {
+      return (
+        <ContactListElem key={id} contactName={name} contactNumber={number} />
+      );
+    });
+  };
+
+  return (
+    <ul>
+      {filter
+        ? makeFilteredList(contacts, filter)
+        : makeUnfilteredList(contacts)}
     </ul>
   );
 };

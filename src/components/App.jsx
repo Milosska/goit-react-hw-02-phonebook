@@ -5,12 +5,12 @@ import { nanoid } from 'nanoid';
 
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 
 export class App extends Component {
   state = {
     contacts: [],
-    name: '',
-    number: '',
+    filter: '',
   };
 
   handleSubmit = (values, { resetForm }) => {
@@ -20,9 +20,16 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
+
     resetForm({
       name: '',
       number: '',
+    });
+  };
+
+  handleFilter = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value,
     });
   };
 
@@ -33,8 +40,11 @@ export class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm onFormSubmit={this.handleSubmit} />
         <h2>Contacts</h2>
-        {/* <Filter ... /> */}
-        <ContactList contacts={this.state.contacts} />
+        <Filter onFilter={this.handleFilter} />
+        <ContactList
+          contacts={this.state.contacts}
+          filter={this.state.filter}
+        />
       </div>
     );
   }
