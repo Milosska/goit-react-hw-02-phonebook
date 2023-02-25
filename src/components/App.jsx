@@ -42,6 +42,12 @@ export class App extends Component {
     });
   };
 
+  handleDelete = EvtId => {
+    this.setState({
+      contacts: this.state.contacts.filter(({ id }) => id !== EvtId),
+    });
+  };
+
   render() {
     return (
       <div>
@@ -53,6 +59,7 @@ export class App extends Component {
         <ContactList
           contacts={this.state.contacts}
           filter={this.state.filter}
+          onDelete={this.handleDelete}
         />
       </div>
     );

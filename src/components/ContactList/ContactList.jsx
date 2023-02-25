@@ -1,7 +1,7 @@
 import { ContactListElem } from '../ContactListElem/ContactListElem';
 import PropTypes from 'prop-types';
 
-export const ContactList = ({ contacts, filter }) => {
+export const ContactList = ({ contacts, filter, onDelete }) => {
   const makeFilteredList = (arrey, filterValue) => {
     return arrey
       .filter(({ name }) => {
@@ -9,7 +9,12 @@ export const ContactList = ({ contacts, filter }) => {
       })
       .map(({ id, name, number }) => {
         return (
-          <ContactListElem key={id} contactName={name} contactNumber={number} />
+          <ContactListElem
+            key={id}
+            contactName={name}
+            contactNumber={number}
+            contactId={id}
+          />
         );
       });
   };
@@ -17,7 +22,13 @@ export const ContactList = ({ contacts, filter }) => {
   const makeUnfilteredList = arrey => {
     return arrey.map(({ id, name, number }) => {
       return (
-        <ContactListElem key={id} contactName={name} contactNumber={number} />
+        <ContactListElem
+          key={id}
+          contactName={name}
+          contactNumber={number}
+          contactId={id}
+          contactDelete={onDelete}
+        />
       );
     });
   };
@@ -39,4 +50,6 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
+  filter: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

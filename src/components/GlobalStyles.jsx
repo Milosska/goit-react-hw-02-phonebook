@@ -33,7 +33,7 @@ img {
 }
 
 ul {
-  /* list-style: none; */
+  list-style: inside;
   /* margin: 0;
   padding-left: 0; */
 }
